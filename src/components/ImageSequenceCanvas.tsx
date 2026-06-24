@@ -3,22 +3,18 @@
 import { useEffect, useRef, useState } from "react";
 import { useScroll } from "framer-motion";
 
-const FRAME_COUNT = 30;
+const FRAME_COUNT = 100;
 
 const getFramePath = (index: number) => {
   const paddedIndex = index.toString().padStart(3, "0");
-  return `/frames/ezgif-frame-${paddedIndex}.jpg`;
+  return `/frames/${paddedIndex}.png`;
 };
 
 export default function ImageSequenceCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
-  const { scrollYProgress } = useScroll();
-  const [progress, setProgress] = useState(0);
 
-  useEffect(() => {
-    return scrollYProgress.onChange(setProgress);
-  }, [scrollYProgress]);
+  const { scrollYProgress } = useScroll();
 
   // Preload frames and extract background color
   useEffect(() => {
@@ -71,14 +67,17 @@ export default function ImageSequenceCanvas() {
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = "high";
 
-    const draw = () => {
+    let animationFrameId: number;
+
+    const renderLoop = () => {
+      const progress = scrollYProgress.get();
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // PHASE 1: Sequence Scrubbing (0.0 to 0.15)
-      // Map progress 0 -> 0.15 to frameIndex 0 -> 29
+      // PHASE 1: Sequence Scrubbing (0.0 to 0.4)
+      // Map progress 0 -> 0.4 to frameIndex 0 -> 99
       let frameProgress = 0;
-      if (progress <= 0.15) {
-        frameProgress = progress / 0.15;
+      if (progress <= 0.4) {
+        frameProgress = progress / 0.4;
       } else {
         frameProgress = 1; // Locked to last frame
       }
@@ -89,7 +88,10 @@ export default function ImageSequenceCanvas() {
       );
 
       const img = images[frameIndex];
-      if (!img || !img.complete || img.naturalWidth === 0) return;
+      if (!img || !img.complete || img.naturalWidth === 0) {
+        animationFrameId = requestAnimationFrame(renderLoop);
+        return;
+      }
 
       const canvasRatio = canvas.width / canvas.height;
       const imgRatio = img.width / img.height;
@@ -110,10 +112,10 @@ export default function ImageSequenceCanvas() {
       offsetX = (canvas.width - drawWidth) / 2;
       offsetY = (canvas.height - drawHeight) / 2;
 
-      // PHASE 2: 3D Explosion on the last frame (0.15 to 0.85)
+      // PHASE 2: 3D Explosion on the last frame (0.4 to 0.9)
       let explosionProgress = 0;
-      if (progress > 0.15) {
-        explosionProgress = Math.min(1, (progress - 0.15) / 0.7);
+      if (progress > 0.4) {
+        explosionProgress = Math.min(1, (progress - 0.4) / 0.5);
       }
 
       ctx.save();
@@ -128,9 +130,10 @@ export default function ImageSequenceCanvas() {
 
       // Draw standard frame if not exploding
       if (easeP < 0.01) {
-        ctx.globalCompositeOperation = "lighten";
+        ctx.globalCompositeOperation = "source-over";
         ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
         ctx.restore();
+        animationFrameId = requestAnimationFrame(renderLoop);
         return;
       }
 
@@ -207,17 +210,19 @@ export default function ImageSequenceCanvas() {
         ctx.restore();
       };
 
-      ctx.globalCompositeOperation = "lighten";
+      ctx.globalCompositeOperation = "source-over";
       drawHeadband();
       drawLeftEarcup();
       drawRightEarcup();
       
       ctx.restore();
+      
+      animationFrameId = requestAnimationFrame(renderLoop);
     };
 
-    const animationFrameId = requestAnimationFrame(draw);
+    renderLoop();
     return () => cancelAnimationFrame(animationFrameId);
-  }, [progress, images]);
+  }, [images, scrollYProgress]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -235,7 +240,7 @@ export default function ImageSequenceCanvas() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute top-0 left-0 w-full h-full object-cover mix-blend-screen"
+      className="absolute top-0 left-0 w-full h-full object-cover"
     />
   );
 }
