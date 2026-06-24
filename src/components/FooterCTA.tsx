@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function FooterCTA() {
   return (
-    <section className="relative w-full py-32 flex flex-col items-center justify-center bg-[#050505] border-t border-white/5">
+    <section className="relative w-full py-32 flex flex-col items-center justify-center bg-background border-t border-white/5">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

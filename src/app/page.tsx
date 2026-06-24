@@ -5,7 +5,7 @@ import ImageSequenceCanvas from "@/components/ImageSequenceCanvas";
 
 export default function Home() {
   return (
-    <main className="relative bg-[#050505] min-h-screen">
+    <main className="relative bg-background min-h-screen">
       <div className="fixed inset-0 pointer-events-none z-0">
         <ImageSequenceCanvas />
       </div>
