@@ -21,37 +21,40 @@ export default function Navbar() {
           ALEX<span className="text-white/50">.DEV</span>
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => {
-            const isActive = pathname === link.href;
-            return (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`text-sm font-medium transition-colors ${
-                  isActive ? "text-white" : "text-white/60 hover:text-white"
-                }`}
-              >
-                {link.name}
-              </Link>
-            );
-          })}
+        {/* Right Side: Links (Desktop), Hire Me (All), Menu Toggle (Mobile) */}
+        <div className="flex items-center gap-4 z-50">
+          <div className="hidden md:flex items-center gap-6 mr-2">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`text-sm font-medium transition-colors ${
+                    isActive ? "text-white" : "text-white/60 hover:text-white"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
+          </div>
+          
           <Link
             href="#contact"
-            className="ml-4 px-4 py-2 text-sm font-medium text-black bg-white rounded-full hover:bg-white/90 transition-transform active:scale-95"
+            className="px-4 py-2 text-xs md:text-sm font-medium text-black bg-white rounded-full hover:bg-white/90 transition-transform active:scale-95"
           >
             Hire Me
           </Link>
-        </div>
 
-        {/* Mobile Toggle */}
-        <button 
-          className="md:hidden z-50 p-2 text-white/90"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+          <button 
+            className="md:hidden p-2 -mr-2 text-white/90"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Sidebar */}
