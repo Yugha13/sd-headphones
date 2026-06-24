@@ -68,10 +68,102 @@ export default function ContactPage() {
         </div>
 
         {/* Content */}
-        <div className="absolute inset-0 z-10 w-full h-full flex flex-col lg:flex-row items-end justify-between p-6 sm:p-10 md:p-12 lg:p-16 gap-8 lg:gap-12">
+        <div className="absolute inset-0 z-10 w-full h-full flex flex-col-reverse lg:flex-row items-end justify-between p-6 sm:p-10 md:p-12 lg:p-16 gap-8 lg:gap-12">
           
-          {/* Left Side: Text */}
-          <div className="w-full lg:w-1/2 flex flex-col justify-end drop-shadow-2xl">
+          {/* Left Side: Form Card */}
+          <div className="w-full lg:w-1/2 flex justify-center lg:justify-start">
+            <motion.div 
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="w-full max-w-[500px] bg-black/40 backdrop-blur-xl text-white rounded-[2rem] p-8 sm:p-10 shadow-[0_20px_80px_-15px_rgba(0,0,0,0.7)] border border-white/10"
+            >
+              <h2 className="text-2xl sm:text-3xl font-bold mb-6">Say hello! 👋</h2>
+              
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                <div>
+                  <p className="text-xs text-white/60 font-medium mb-0.5">Drop us a line</p>
+                  <a href="mailto:hello@forma.co" className="text-sm font-bold text-primary hover:text-white transition-colors">
+                    hello@forma.co
+                  </a>
+                </div>
+                
+                <div className="flex gap-2">
+                  <button className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 hover:text-white transition-colors">
+                    <TwitterIcon className="w-3.5 h-3.5" />
+                  </button>
+                  <button className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 hover:text-white transition-colors">
+                    <InstagramIcon className="w-3.5 h-3.5" />
+                  </button>
+                  <button className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 hover:text-white transition-colors">
+                    <DribbbleIcon className="w-3.5 h-3.5" />
+                  </button>
+                  <button className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-white/10 hover:text-white transition-colors">
+                    <LinkedinIcon className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="relative flex items-center py-4">
+                <div className="flex-grow border-t border-white/10"></div>
+                <span className="flex-shrink-0 mx-4 text-white/40 text-[10px] uppercase font-bold tracking-widest">OR</span>
+                <div className="flex-grow border-t border-white/10"></div>
+              </div>
+
+              <form className="mt-2 space-y-5" onSubmit={(e) => e.preventDefault()}>
+                <div>
+                  <p className="text-xs font-bold mb-3 text-white/90">Tell us about your vision</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+                    <input 
+                      type="text" 
+                      placeholder="Full name" 
+                      className="w-full bg-white/5 border border-white/10 placeholder:text-white/40 text-white rounded-xl px-4 py-2.5 text-[13px] focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all"
+                    />
+                    <input 
+                      type="email" 
+                      placeholder="Email" 
+                      className="w-full bg-white/5 border border-white/10 placeholder:text-white/40 text-white rounded-xl px-4 py-2.5 text-[13px] focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all"
+                    />
+                  </div>
+                  <textarea 
+                    placeholder="What are you looking to build or improve..." 
+                    rows={2}
+                    className="w-full bg-white/5 border border-white/10 placeholder:text-white/40 text-white rounded-xl px-4 py-3 text-[13px] focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all resize-none"
+                  />
+                </div>
+
+                <div>
+                  <p className="text-xs font-bold mb-3 text-white/90">I need help with...</p>
+                  <div className="flex flex-wrap gap-2">
+                    {helpTags.map(tag => (
+                      <button
+                        key={tag}
+                        type="button"
+                        onClick={() => toggleTag(tag)}
+                        className={`px-3 py-1.5 rounded-full text-[11px] font-medium transition-all ${
+                          selectedTags.includes(tag) 
+                            ? "bg-[#E1E0CC] text-black border-[#E1E0CC]" 
+                            : "bg-transparent text-white/60 border-white/20 hover:border-white/40"
+                        } border`}
+                      >
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <button 
+                  type="submit"
+                  className="w-full bg-[#E1E0CC] text-black rounded-full py-3.5 text-[13px] font-bold hover:bg-white transition-colors mt-6"
+                >
+                  Send my message
+                </button>
+              </form>
+            </motion.div>
+          </div>
+
+          {/* Right Side: Text */}
+          <div className="w-full lg:w-1/2 flex flex-col justify-end lg:items-end text-left lg:text-right drop-shadow-2xl">
             <div className="max-w-xl">
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] tracking-tight text-white mb-2 lg:mb-4" style={{ textShadow: "0 4px 30px rgba(0,0,0,0.8)" }}>
                 We craft bold ideas <br />
@@ -79,98 +171,6 @@ export default function ContactPage() {
               </h1>
             </div>
           </div>
-
-          {/* Right Side: Form Card */}
-          <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-[500px] bg-white text-black rounded-[2rem] p-8 sm:p-10 shadow-[0_20px_80px_-15px_rgba(0,0,0,0.7)]"
-          >
-            <h2 className="text-2xl sm:text-3xl font-bold mb-6">Say hello! 👋</h2>
-            
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-              <div>
-                <p className="text-xs text-gray-500 font-medium mb-0.5">Drop us a line</p>
-                <a href="mailto:hello@forma.co" className="text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors">
-                  hello@forma.co
-                </a>
-              </div>
-              
-              <div className="flex gap-2">
-                <button className="w-8 h-8 rounded-full bg-[#f4f4f4] flex items-center justify-center text-gray-500 hover:bg-gray-200 hover:text-gray-800 transition-colors">
-                  <TwitterIcon className="w-3.5 h-3.5" />
-                </button>
-                <button className="w-8 h-8 rounded-full bg-[#f4f4f4] flex items-center justify-center text-gray-500 hover:bg-gray-200 hover:text-gray-800 transition-colors">
-                  <InstagramIcon className="w-3.5 h-3.5" />
-                </button>
-                <button className="w-8 h-8 rounded-full bg-[#f4f4f4] flex items-center justify-center text-gray-500 hover:bg-gray-200 hover:text-gray-800 transition-colors">
-                  <DribbbleIcon className="w-3.5 h-3.5" />
-                </button>
-                <button className="w-8 h-8 rounded-full bg-[#f4f4f4] flex items-center justify-center text-gray-500 hover:bg-gray-200 hover:text-gray-800 transition-colors">
-                  <LinkedinIcon className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </div>
-
-            <div className="relative flex items-center py-4">
-              <div className="flex-grow border-t border-gray-100"></div>
-              <span className="flex-shrink-0 mx-4 text-gray-400 text-[10px] uppercase font-bold tracking-widest">OR</span>
-              <div className="flex-grow border-t border-gray-100"></div>
-            </div>
-
-            <form className="mt-2 space-y-5" onSubmit={(e) => e.preventDefault()}>
-              <div>
-                <p className="text-xs font-bold mb-3 text-gray-800">Tell us about your vision</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
-                  <input 
-                    type="text" 
-                    placeholder="Full name" 
-                    className="w-full bg-transparent border border-gray-200 placeholder:text-gray-400 rounded-xl px-4 py-2.5 text-[13px] focus:outline-none focus:border-gray-400 transition-all"
-                  />
-                  <input 
-                    type="email" 
-                    placeholder="Email" 
-                    className="w-full bg-transparent border border-gray-200 placeholder:text-gray-400 rounded-xl px-4 py-2.5 text-[13px] focus:outline-none focus:border-gray-400 transition-all"
-                  />
-                </div>
-                <textarea 
-                  placeholder="What are you looking to build or improve..." 
-                  rows={2}
-                  className="w-full bg-transparent border border-gray-200 placeholder:text-gray-400 rounded-xl px-4 py-3 text-[13px] focus:outline-none focus:border-gray-400 transition-all resize-none"
-                />
-              </div>
-
-              <div>
-                <p className="text-xs font-bold mb-3 text-gray-800">I need help with...</p>
-                <div className="flex flex-wrap gap-2">
-                  {helpTags.map(tag => (
-                    <button
-                      key={tag}
-                      type="button"
-                      onClick={() => toggleTag(tag)}
-                      className={`px-3 py-1.5 rounded-full text-[11px] font-medium transition-all ${
-                        selectedTags.includes(tag) 
-                          ? "bg-black text-white border-black" 
-                          : "bg-transparent text-gray-500 border-gray-200 hover:border-gray-300"
-                      } border`}
-                    >
-                      {tag}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <button 
-                type="submit"
-                className="w-full bg-black text-white rounded-full py-3.5 text-[13px] font-bold hover:bg-gray-800 transition-colors mt-6"
-              >
-                Send my message
-              </button>
-            </form>
-          </motion.div>
-        </div>
       </div>
       </div>
     </main>
