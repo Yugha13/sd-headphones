@@ -5,10 +5,8 @@ const nextConfig: NextConfig = {
     appIsrStatus: false,
     buildActivity: false,
   },
-  experimental: {
-    allowedDevOrigins: ['192.168.224.90'],
-  },
-  allowedDevOrigins: ['192.168.224.90'], // Added both inside and outside experimental just in case
+  // @ts-expect-error - Next.js internal type definitions may not include this newly added security config yet
+  allowedDevOrigins: ['192.168.224.90', 'localhost'],
 };
 
 export default nextConfig;
