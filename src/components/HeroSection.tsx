@@ -1,0 +1,44 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+
+export default function HeroSection() {
+  return (
+    <section className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-[#050505]">
+      
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="z-10 text-center"
+      >
+        <h1 className="text-sm uppercase tracking-[0.3em] text-white/50 mb-6">
+          Introducing
+        </h1>
+        <h2 className="text-6xl md:text-8xl font-bold tracking-tighter text-white/90 drop-shadow-lg mb-8">
+          SonicWave Pro
+        </h2>
+        <p className="text-xl text-white/60 font-light max-w-lg mx-auto leading-relaxed">
+          The next generation of acoustic engineering. Discover sound without boundaries.
+        </p>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 1 }}
+        className="absolute bottom-12 flex flex-col items-center justify-center gap-3 text-white/40"
+      >
+        <span className="text-xs uppercase tracking-widest">Scroll to Explore</span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+        >
+          <ChevronDown className="w-5 h-5 opacity-70" />
+        </motion.div>
+      </motion.div>
+
+    </section>
+  );
+}
