@@ -63,10 +63,13 @@ export default function PrismaFeatures() {
   ];
 
   return (
-    <section className="relative min-h-screen bg-black py-20 px-4 md:px-6">
+    <section className="relative  bg-black py-20 px-4 md:px-6">
       <div className="absolute inset-0 bg-noise opacity-[0.15] pointer-events-none" />
 
       <div className="relative z-10 max-w-[1400px] mx-auto flex flex-col gap-16">
+        
+        {/* Tech Stack Marquee */}
+        <TechStackMarquee />
         
         {/* Header */}
         <div className="text-center px-4">
@@ -140,9 +143,6 @@ export default function PrismaFeatures() {
             </motion.div>
           ))}
         </motion.div>
-
-        {/* Tech Stack Marquee */}
-        <TechStackMarquee />
 
       </div>
     </section>

@@ -54,7 +54,7 @@ const techStack = [
 
 export default function TechStackMarquee() {
   return (
-    <div className="mt-12 flex flex-col items-center">
+    <div className="mb-12 flex flex-col items-center">
       <h3 className="text-[#E1E0CC]/50 text-xs tracking-[0.2em] uppercase font-sans mb-6">
         My Stack
       </h3>
