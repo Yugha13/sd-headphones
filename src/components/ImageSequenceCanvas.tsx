@@ -68,6 +68,9 @@ export default function ImageSequenceCanvas() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
@@ -219,8 +222,9 @@ export default function ImageSequenceCanvas() {
   useEffect(() => {
     const handleResize = () => {
       if (canvasRef.current) {
-        canvasRef.current.width = window.innerWidth;
-        canvasRef.current.height = window.innerHeight;
+        const dpr = window.devicePixelRatio || 1;
+        canvasRef.current.width = window.innerWidth * dpr;
+        canvasRef.current.height = window.innerHeight * dpr;
       }
     };
     handleResize();
