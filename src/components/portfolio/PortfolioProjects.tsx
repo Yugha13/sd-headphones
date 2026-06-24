@@ -67,10 +67,6 @@ export default function PrismaFeatures() {
       <div className="absolute inset-0 bg-noise opacity-[0.15] pointer-events-none" />
 
       <div className="relative z-10 max-w-[1400px] mx-auto flex flex-col gap-16">
-        
-        {/* Tech Stack Marquee */}
-        <TechStackMarquee />
-        
         {/* Header */}
         <div className="text-center px-4">
           <WordsPullUpMultiStyle
@@ -143,7 +139,10 @@ export default function PrismaFeatures() {
             </motion.div>
           ))}
         </motion.div>
-
+                
+        {/* Tech Stack Marquee */}
+        <TechStackMarquee />
+        
       </div>
     </section>
   );
