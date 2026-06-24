@@ -19,22 +19,27 @@ export default function ImageSequenceCanvas() {
     const loadedImages: HTMLImageElement[] = [];
 
     const extractBackgroundColor = (img: HTMLImageElement) => {
-      const c = document.createElement("canvas");
-      c.width = 1;
-      c.height = 1;
-      const ctx = c.getContext("2d");
-      if (ctx) {
-        ctx.drawImage(img, 0, 0, 1, 1);
-        const data = ctx.getImageData(0, 0, 1, 1).data;
-        document.documentElement.style.setProperty(
-          "--color-background",
-          `rgb(${data[0]}, ${data[1]}, ${data[2]})`
-        );
+      try {
+        const c = document.createElement("canvas");
+        c.width = 1;
+        c.height = 1;
+        const ctx = c.getContext("2d");
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, 1, 1);
+          const data = ctx.getImageData(0, 0, 1, 1).data;
+          document.documentElement.style.setProperty(
+            "--color-background",
+            `rgb(${data[0]}, ${data[1]}, ${data[2]})`
+          );
+        }
+      } catch (e) {
+        console.warn("Could not extract background color:", e);
       }
     };
 
     for (let i = 1; i <= FRAME_COUNT; i++) {
       const img = new Image();
+      img.decoding = "async"; // Helps mobile browsers not block the main thread
       img.src = getFramePath(i);
       img.onload = () => {
         if (!isCancelled) {
@@ -68,9 +73,12 @@ export default function ImageSequenceCanvas() {
     let lastDrawnImg: HTMLImageElement | null = null;
 
     const renderLoop = () => {
-      // Calculate native scroll progress
+      // Calculate native scroll progress reliably
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrollHeight = Math.max(
+        document.body.scrollHeight, 
+        document.documentElement.scrollHeight
+      ) - window.innerHeight;
       const progress = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
 
       // Map progress 0 -> 0.7 to frameIndex 0 -> 199
