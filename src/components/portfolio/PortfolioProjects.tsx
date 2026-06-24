@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
 import WordsPullUpMultiStyle from "../ui/WordsPullUpMultiStyle";
+import TechStackMarquee from "./TechStackMarquee";
 
 export default function PrismaFeatures() {
   const gridRef = useRef(null);
@@ -141,28 +142,7 @@ export default function PrismaFeatures() {
         </motion.div>
 
         {/* Tech Stack Marquee */}
-        <div className="mt-12 overflow-hidden flex whitespace-nowrap w-full relative before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-[100px] before:bg-gradient-to-r before:from-black before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-[100px] after:bg-gradient-to-l after:from-black after:to-transparent">
-          <motion.div
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ repeat: Infinity, ease: "linear", duration: 30 }}
-            className="flex items-center"
-          >
-            {[
-              "TypeScript", "React", "Next.js", "Bun", "PostgreSQL", 
-              "Node.js", "React Native", "Tailwind CSS", "Framer Motion", "Supabase",
-              // Repeat the exact same array to make the infinite loop seamless
-              "TypeScript", "React", "Next.js", "Bun", "PostgreSQL", 
-              "Node.js", "React Native", "Tailwind CSS", "Framer Motion", "Supabase"
-            ].map((tech, i) => (
-              <div key={i} className="flex items-center gap-8 mx-8">
-                <span className="text-[#E1E0CC]/40 text-4xl md:text-5xl lg:text-6xl font-serif italic tracking-wider uppercase">
-                  {tech}
-                </span>
-                <span className="text-primary/30 text-2xl">✻</span>
-              </div>
-            ))}
-          </motion.div>
-        </div>
+        <TechStackMarquee />
 
       </div>
     </section>
