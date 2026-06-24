@@ -1,6 +1,8 @@
 import PortfolioHero from "@/components/portfolio/PortfolioHero";
 import PortfolioExperience from "@/components/portfolio/PortfolioExperience";
 import PortfolioProjects from "@/components/portfolio/PortfolioProjects";
+import PortfolioSelectedWork from "@/components/portfolio/PortfolioSelectedWork";
+import PortfolioFooter from "@/components/portfolio/PortfolioFooter";
 
 export default function Home() {
   return (
@@ -8,6 +10,8 @@ export default function Home() {
       <PortfolioHero />
       <PortfolioExperience />
       <PortfolioProjects />
+      <PortfolioSelectedWork />
+      <PortfolioFooter />
     </main>
   );
 }

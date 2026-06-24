@@ -52,7 +52,9 @@ export default function ImageSequenceCanvas() {
       loadedImages.push(img);
     }
     
-    setImages(loadedImages);
+    setTimeout(() => {
+      if (!isCancelled) setImages(loadedImages);
+    }, 0);
 
     return () => {
       isCancelled = true;
