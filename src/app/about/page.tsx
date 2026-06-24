@@ -1,7 +1,7 @@
 import HeroSection from "@/components/HeroSection";
 import ScrollyTellingSection from "@/components/ScrollyTellingSection";
-import FooterCTA from "@/components/FooterCTA";
-import ProjectsSection from "@/components/ProjectsSection";
+import PortfolioFooter from "@/components/portfolio/PortfolioFooter";
+import PortfolioSelectedWork from "@/components/portfolio/PortfolioSelectedWork";
 import ImageSequenceCanvas from "@/components/ImageSequenceCanvas";
 
 export default function Home() {
@@ -14,8 +14,8 @@ export default function Home() {
       <div className="relative z-10">
         <HeroSection />
         <ScrollyTellingSection />
-        <ProjectsSection />
-        <FooterCTA />
+        <PortfolioSelectedWork />
+        <PortfolioFooter />
       </div>
     </main>
   );
