@@ -25,16 +25,16 @@ export default function ScrollyTellingSection() {
       <div className="sticky top-0 w-full h-screen overflow-hidden flex items-center justify-center">
         
         {/* Text Overlays Layer */}
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none px-6 md:px-0">
           
           <motion.div
             style={{ opacity: text1Opacity, y: text1Y }}
             className="absolute text-center"
           >
-            <h2 className="text-4xl md:text-6xl font-light tracking-tight text-white/90 mb-4 drop-shadow-lg">
+            <h2 className="text-3xl md:text-6xl font-light tracking-tight text-white/90 mb-4 drop-shadow-lg">
               Sound Redefined
             </h2>
-            <p className="text-lg text-white/60 max-w-md mx-auto drop-shadow-md">
+            <p className="text-base md:text-lg text-white/60 max-w-md mx-auto drop-shadow-md">
               Every component engineered for absolute acoustic clarity.
             </p>
           </motion.div>
@@ -43,19 +43,19 @@ export default function ScrollyTellingSection() {
             style={{ opacity: text2Opacity, y: text2Y }}
             className="absolute text-center"
           >
-            <h2 className="text-4xl md:text-6xl font-light tracking-tight text-white/90 mb-4 drop-shadow-lg">
+            <h2 className="text-3xl md:text-6xl font-light tracking-tight text-white/90 mb-4 drop-shadow-lg">
               Precision Engineering
             </h2>
-            <p className="text-lg text-white/60 max-w-md mx-auto drop-shadow-md">
+            <p className="text-base md:text-lg text-white/60 max-w-md mx-auto drop-shadow-md">
               Titanium drivers crafted to microscopic tolerances.
             </p>
           </motion.div>
 
           <motion.div
             style={{ opacity: text3Opacity, scale: text3Scale }}
-            className="absolute text-center mt-32"
+            className="absolute text-center mt-24 md:mt-32"
           >
-            <h2 className="text-5xl md:text-8xl font-bold tracking-tighter text-white/90 drop-shadow-2xl">
+            <h2 className="text-4xl md:text-8xl font-bold tracking-tighter text-white/90 drop-shadow-2xl">
               SonicWave Pro
             </h2>
           </motion.div>

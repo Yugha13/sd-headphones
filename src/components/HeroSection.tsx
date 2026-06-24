@@ -11,15 +11,15 @@ export default function HeroSection() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="z-10 text-center pointer-events-none"
+        className="z-10 text-center pointer-events-none px-6 md:px-0"
       >
-        <h1 className="text-sm uppercase tracking-[0.3em] text-white/50 mb-6 drop-shadow-md">
+        <h1 className="text-xs md:text-sm uppercase tracking-[0.3em] text-white/50 mb-6 drop-shadow-md">
           Introducing
         </h1>
-        <h2 className="text-6xl md:text-8xl font-bold tracking-tighter text-white/90 drop-shadow-2xl mb-8">
+        <h2 className="text-5xl md:text-8xl font-bold tracking-tighter text-white/90 drop-shadow-2xl mb-8">
           SonicWave Pro
         </h2>
-        <p className="text-xl text-white/60 font-light max-w-lg mx-auto leading-relaxed drop-shadow-md">
+        <p className="text-lg md:text-xl text-white/60 font-light max-w-lg mx-auto leading-relaxed drop-shadow-md">
           The next generation of acoustic engineering. Discover sound without boundaries.
         </p>
       </motion.div>

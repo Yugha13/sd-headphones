@@ -10,12 +10,12 @@ export default function FooterCTA() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.8 }}
-        className="text-center"
+        className="text-center px-6 md:px-0"
       >
         <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-white/90 mb-6">
           Ready for the extraordinary?
         </h2>
-        <p className="text-lg text-white/50 mb-10 max-w-md mx-auto">
+        <p className="text-base md:text-lg text-white/50 mb-10 max-w-md mx-auto">
           Pre-order SonicWave Pro today and be the first to experience the future of sound.
         </p>
         
