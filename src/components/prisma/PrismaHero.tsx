@@ -25,21 +25,7 @@ export default function PrismaHero() {
         <div className="absolute inset-0 noise-overlay opacity-[0.7] mix-blend-overlay pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60 pointer-events-none" />
 
-        {/* Hanging Navbar */}
-        <div className="absolute top-0 left-0 right-0 flex justify-center z-50">
-          <nav className="bg-black rounded-b-2xl md:rounded-b-3xl px-4 py-2 md:px-8 flex items-center gap-3 sm:gap-6 md:gap-12 lg:gap-14">
-            {navLinks.map((link) => (
-              <a
-                key={link}
-                href={`#${link.toLowerCase().replace(" ", "-")}`}
-                className="text-[10px] sm:text-xs md:text-sm text-[#E1E0CC]/80 hover:text-[#E1E0CC] transition-colors"
-                style={{ color: "rgba(225, 224, 204, 0.8)" }}
-              >
-                {link}
-              </a>
-            ))}
-          </nav>
-        </div>
+
 
         {/* Hero Content */}
         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12 z-20">
