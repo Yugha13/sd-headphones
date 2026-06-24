@@ -73,18 +73,10 @@ export default function ImageSequenceCanvas() {
       const progress = scrollYProgress.get();
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // PHASE 1: Sequence Scrubbing (0.0 to 0.4)
-      // Map progress 0 -> 0.4 to frameIndex 0 -> 99
-      let frameProgress = 0;
-      if (progress <= 0.4) {
-        frameProgress = progress / 0.4;
-      } else {
-        frameProgress = 1; // Locked to last frame
-      }
-      
+      // Map full progress to frameIndex
       const frameIndex = Math.min(
         FRAME_COUNT - 1,
-        Math.max(0, Math.floor(frameProgress * FRAME_COUNT))
+        Math.max(0, Math.floor(progress * FRAME_COUNT))
       );
 
       const img = images[frameIndex];
@@ -112,110 +104,9 @@ export default function ImageSequenceCanvas() {
       offsetX = (canvas.width - drawWidth) / 2;
       offsetY = (canvas.height - drawHeight) / 2;
 
-      // PHASE 2: 3D Explosion on the last frame (0.4 to 0.9)
-      let explosionProgress = 0;
-      if (progress > 0.4) {
-        explosionProgress = Math.min(1, (progress - 0.4) / 0.5);
-      }
-
-      ctx.save();
-      // Center translation for ease
-      ctx.translate(canvas.width / 2, canvas.height / 2);
-      ctx.translate(-canvas.width / 2, -canvas.height / 2);
-
-      const easeP = 1 - Math.pow(1 - explosionProgress, 3);
-
-      const w = img.width;
-      const h = img.height;
-
-      // Draw standard frame if not exploding
-      if (easeP < 0.01) {
-        ctx.globalCompositeOperation = "source-over";
-        ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
-        ctx.restore();
-        animationFrameId = requestAnimationFrame(renderLoop);
-        return;
-      }
-
-      // Explosion slices
-      const drawHeadband = () => {
-        ctx.save();
-        const sx = 0, sy = 0, sw = w, sh = h * 0.45;
-        const dxOffset = 0, dyOffset = -easeP * (drawHeight * 0.3), rot = 0;
-        
-        const dx = offsetX + (sx / w) * drawWidth;
-        const dy = offsetY + (sy / h) * drawHeight;
-        const dw = (sw / w) * drawWidth;
-        const dh = (sh / h) * drawHeight;
-
-        const cx = dx + dw / 2;
-        const cy = dy + dh / 2;
-
-        ctx.translate(cx + dxOffset, cy + dyOffset);
-        ctx.rotate(rot);
-        
-        ctx.beginPath();
-        ctx.ellipse(0, -dh*0.1, dw/2, dh/1.5, 0, 0, Math.PI * 2);
-        ctx.clip();
-        
-        ctx.drawImage(img, sx, sy, sw, sh, -dw / 2, -dh / 2, dw, dh);
-        ctx.restore();
-      };
-
-      const drawLeftEarcup = () => {
-        ctx.save();
-        const sx = 0, sy = h * 0.45, sw = w * 0.5, sh = h * 0.55;
-        const dxOffset = -easeP * (drawWidth * 0.4), dyOffset = easeP * (drawHeight * 0.1), rot = -easeP * 0.5;
-        
-        const dx = offsetX + (sx / w) * drawWidth;
-        const dy = offsetY + (sy / h) * drawHeight;
-        const dw = (sw / w) * drawWidth;
-        const dh = (sh / h) * drawHeight;
-
-        const cx = dx + dw / 2;
-        const cy = dy + dh / 2;
-
-        ctx.translate(cx + dxOffset, cy + dyOffset);
-        ctx.rotate(rot);
-        
-        ctx.beginPath();
-        ctx.ellipse(0, 0, dw/1.2, dh/1.2, 0, 0, Math.PI * 2);
-        ctx.clip();
-        
-        ctx.drawImage(img, sx, sy, sw, sh, -dw / 2, -dh / 2, dw, dh);
-        ctx.restore();
-      };
-
-      const drawRightEarcup = () => {
-        ctx.save();
-        const sx = w * 0.5, sy = h * 0.45, sw = w * 0.5, sh = h * 0.55;
-        const dxOffset = easeP * (drawWidth * 0.4), dyOffset = easeP * (drawHeight * 0.1), rot = easeP * 0.5;
-        
-        const dx = offsetX + (sx / w) * drawWidth;
-        const dy = offsetY + (sy / h) * drawHeight;
-        const dw = (sw / w) * drawWidth;
-        const dh = (sh / h) * drawHeight;
-
-        const cx = dx + dw / 2;
-        const cy = dy + dh / 2;
-
-        ctx.translate(cx + dxOffset, cy + dyOffset);
-        ctx.rotate(rot);
-        
-        ctx.beginPath();
-        ctx.ellipse(0, 0, dw/1.2, dh/1.2, 0, 0, Math.PI * 2);
-        ctx.clip();
-        
-        ctx.drawImage(img, sx, sy, sw, sh, -dw / 2, -dh / 2, dw, dh);
-        ctx.restore();
-      };
-
+      // Draw the frame centered and scaled
       ctx.globalCompositeOperation = "source-over";
-      drawHeadband();
-      drawLeftEarcup();
-      drawRightEarcup();
-      
-      ctx.restore();
+      ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
       
       animationFrameId = requestAnimationFrame(renderLoop);
     };
