@@ -34,9 +34,9 @@ export default function PrismaHero() {
             {/* Left: Giant Heading (8 cols) */}
             <div className="col-span-12 lg:col-span-8">
               <WordsPullUp
-                text="Yugha"
+                text="YUGHA"
                 showAsterisk={true}
-                className="text-[26vw] sm:text-[24vw] md:text-[22vw] lg:text-[20vw] xl:text-[19vw] 2xl:text-[20vw] font-medium leading-[0.85] tracking-[-0.07em] text-[#E1E0CC]"
+                className="text-[20vw] sm:text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[13vw] 2xl:text-[14vw] font-medium leading-[0.85] tracking-[-0.07em] text-[#E1E0CC]"
               />
             </div>
 
