@@ -8,8 +8,8 @@ const navLinks = ["Our story", "Collective", "Workshops", "Programs", "Inquiries
 
 export default function PrismaHero() {
   return (
-    <section className="relative w-full h-screen p-4 md:p-6 bg-black">
-      <div className="relative w-full h-full rounded-2xl md:rounded-[2rem] overflow-hidden">
+    <section className="relative w-full h-screen px-4 pb-4 md:px-6 md:pb-6 pt-0 bg-black">
+      <div className="relative w-full h-full rounded-b-2xl md:rounded-b-[2rem] overflow-hidden">
         
         {/* Video Background */}
         <video
