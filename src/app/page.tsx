@@ -1,15 +1,13 @@
-import PrismaNavbar from "@/components/prisma/PrismaNavbar";
-import PrismaHero from "@/components/prisma/PrismaHero";
-import PrismaAbout from "@/components/prisma/PrismaAbout";
-import PrismaFeatures from "@/components/prisma/PrismaFeatures";
+import PortfolioHero from "@/components/portfolio/PortfolioHero";
+import PortfolioExperience from "@/components/portfolio/PortfolioExperience";
+import PortfolioProjects from "@/components/portfolio/PortfolioProjects";
 
 export default function Home() {
   return (
     <main className="bg-black w-full min-h-screen text-white overflow-x-hidden relative">
-      <PrismaNavbar />
-      <PrismaHero />
-      <PrismaAbout />
-      <PrismaFeatures />
+      <PortfolioHero />
+      <PortfolioExperience />
+      <PortfolioProjects />
     </main>
   );
 }

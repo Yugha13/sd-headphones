@@ -34,7 +34,7 @@ export default function PrismaHero() {
             {/* Left: Giant Heading (8 cols) */}
             <div className="col-span-12 lg:col-span-8">
               <WordsPullUp
-                text="Prisma"
+                text="Yugha"
                 showAsterisk={true}
                 className="text-[26vw] sm:text-[24vw] md:text-[22vw] lg:text-[20vw] xl:text-[19vw] 2xl:text-[20vw] font-medium leading-[0.85] tracking-[-0.07em] text-[#E1E0CC]"
               />
@@ -48,7 +48,7 @@ export default function PrismaHero() {
                 transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 className="text-primary/70 text-xs sm:text-sm md:text-base leading-[1.2] max-w-md lg:text-right"
               >
-                Prisma is a worldwide network of visual artists, filmmakers and storytellers bound not by place, status or labels but by passion and hunger to unlock potential through our unique perspectives.
+                Building scalable, elegant web applications and pushing the boundaries of interactive experiences.
               </motion.p>
               
               <motion.button
@@ -57,7 +57,7 @@ export default function PrismaHero() {
                 transition={{ duration: 0.8, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 className="group flex items-center gap-2 bg-primary rounded-full pl-6 pr-1 sm:pr-2 py-1 sm:py-2 hover:gap-3 transition-all active:scale-95"
               >
-                <span className="text-black font-medium text-sm sm:text-base pr-2">Join the lab</span>
+                <span className="text-black font-medium text-sm sm:text-base pr-2">View work</span>
                 <div className="bg-black rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center group-hover:scale-110 transition-transform">
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                 </div>

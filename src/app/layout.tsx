@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Almarai, Instrument_Serif } from "next/font/google";
+import GlobalNavbar from "@/components/portfolio/GlobalNavbar";
 import "./globals.css";
 
 const almarai = Almarai({
@@ -31,6 +32,7 @@ export default function RootLayout({
       className={`${almarai.variable} ${instrumentSerif.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
+        <GlobalNavbar />
         {children}
       </body>
     </html>

@@ -28,34 +28,34 @@ export default function PrismaFeatures() {
 
   const featureCards = [
     {
-      title: "Project Storyboard.",
+      title: "Frontend Architecture.",
       number: "01",
       icon: "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260405_171918_4a5edc79-d78f-4637-ac8b-53c43c220606.png&w=1280&q=85",
       items: [
-        "Interactive moodboards",
-        "Asset version control",
-        "Client review portal",
-        "Timeline syncing",
+        "React & Next.js",
+        "Tailwind CSS & Framer Motion",
+        "Responsive Design",
+        "Performance Optimization",
       ],
     },
     {
-      title: "Smart Critiques.",
+      title: "Backend Systems.",
       number: "02",
       icon: "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260405_171741_ed9845ab-f5b2-4018-8ce7-07cc01823522.png&w=1280&q=85",
       items: [
-        "AI-assisted color analysis",
-        "Frame-accurate creative notes",
-        "Seamless tool integrations",
+        "Node.js & Express",
+        "PostgreSQL & MongoDB",
+        "RESTful APIs & GraphQL",
       ],
     },
     {
-      title: "Immersion Capsule.",
+      title: "Clean Code.",
       number: "03",
       icon: "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260405_171809_f56666dc-c099-4778-ad82-9ad4f209567b.png&w=1280&q=85",
       items: [
-        "Notification silencing",
-        "Ambient soundscapes",
-        "Deep-work schedule syncing",
+        "TypeScript & Eslint",
+        "Unit & Integration Testing",
+        "CI/CD Pipelines",
       ],
     },
   ];
@@ -71,8 +71,8 @@ export default function PrismaFeatures() {
           <WordsPullUpMultiStyle
             containerClassName="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal leading-tight"
             segments={[
-              { text: "Studio-grade workflows for visionary creators. ", className: "text-[#E1E0CC] block" },
-              { text: "Built for pure vision. Powered by art.", className: "text-gray-500 block" },
+              { text: "Studio-grade architecture for modern web apps. ", className: "text-[#E1E0CC] block" },
+              { text: "Built for scale. Powered by clean code.", className: "text-gray-500 block" },
             ]}
           />
         </div>
@@ -100,7 +100,7 @@ export default function PrismaFeatures() {
             />
             <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80" />
             <div className="absolute bottom-6 left-6 text-[#E1E0CC] font-medium text-lg">
-              Your creative canvas.
+              Interactive Experiences.
             </div>
           </motion.div>
 
