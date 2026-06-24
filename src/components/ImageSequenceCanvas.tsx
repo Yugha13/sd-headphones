@@ -1,14 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useScroll } from "framer-motion";
 
-interface ImageSequenceCanvasProps {
-  progress: number;
-}
-
-export default function ImageSequenceCanvas({ progress }: ImageSequenceCanvasProps) {
+export default function ImageSequenceCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [img, setImg] = useState<HTMLImageElement | null>(null);
+  const { scrollYProgress } = useScroll();
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    return scrollYProgress.onChange(setProgress);
+  }, [scrollYProgress]);
 
   useEffect(() => {
     const image = new Image();
@@ -26,7 +29,6 @@ export default function ImageSequenceCanvas({ progress }: ImageSequenceCanvasPro
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Calculate drawing dimensions to maintain aspect ratio covering the canvas
       const canvasRatio = canvas.width / canvas.height;
       const imgRatio = img.width / img.height;
       
@@ -35,7 +37,6 @@ export default function ImageSequenceCanvas({ progress }: ImageSequenceCanvasPro
       let offsetX = 0;
       let offsetY = 0;
 
-      // Fit the image within the canvas (contain) so we can see the explosion clearly
       if (imgRatio > canvasRatio) {
         drawWidth = canvas.width * 0.8;
         drawHeight = drawWidth / imgRatio;
@@ -47,14 +48,25 @@ export default function ImageSequenceCanvas({ progress }: ImageSequenceCanvasPro
       offsetX = (canvas.width - drawWidth) / 2;
       offsetY = (canvas.height - drawHeight) / 2;
 
-      // Ensure progress is smooth
-      const p = Math.max(0, Math.min(1, progress));
+      // The hero section is ~15-20% of the total scroll height.
+      // We want the headphones to stay assembled in the hero, then start breaking.
+      // Let's make the explosion start at progress 0.15 and finish at 0.85
+      let explosionProgress = 0;
+      if (progress > 0.15) {
+        explosionProgress = Math.min(1, (progress - 0.15) / 0.7);
+      }
 
-      // Ease out cubic for explosion effect
-      const easeP = 1 - Math.pow(1 - p, 3);
+      // We can also add a subtle zoom out effect when scrolling from 0 to 0.15
+      const scaleP = progress < 0.15 ? 1 - (progress / 0.15) * 0.1 : 0.9;
+      
+      ctx.save();
+      // Center scale
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+      ctx.scale(scaleP, scaleP);
+      ctx.translate(-canvas.width / 2, -canvas.height / 2);
 
-      // Define slices (Headband, Left Earcup, Right Earcup, Center mechanism)
-      // We will slice the image source coordinates
+      const easeP = 1 - Math.pow(1 - explosionProgress, 3);
+
       const w = img.width;
       const h = img.height;
       
@@ -64,13 +76,11 @@ export default function ImageSequenceCanvas({ progress }: ImageSequenceCanvasPro
       ) => {
         ctx.save();
         
-        // Target destination rect
         const dx = offsetX + (sx / w) * drawWidth;
         const dy = offsetY + (sy / h) * drawHeight;
         const dw = (sw / w) * drawWidth;
         const dh = (sh / h) * drawHeight;
 
-        // Move to center of destination rect for rotation
         const cx = dx + dw / 2;
         const cy = dy + dh / 2;
 
@@ -106,6 +116,8 @@ export default function ImageSequenceCanvas({ progress }: ImageSequenceCanvasPro
         easeP * (drawWidth * 0.4), easeP * (drawHeight * 0.1), // moves right and slightly down
         easeP * 0.5 // rotates clockwise
       );
+      
+      ctx.restore();
     };
 
     const animationFrameId = requestAnimationFrame(draw);

@@ -5,21 +5,21 @@ import { ChevronDown } from "lucide-react";
 
 export default function HeroSection() {
   return (
-    <section className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-[#050505]">
+    <section className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-transparent">
       
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="z-10 text-center"
+        className="z-10 text-center pointer-events-none"
       >
-        <h1 className="text-sm uppercase tracking-[0.3em] text-white/50 mb-6">
+        <h1 className="text-sm uppercase tracking-[0.3em] text-white/50 mb-6 drop-shadow-md">
           Introducing
         </h1>
-        <h2 className="text-6xl md:text-8xl font-bold tracking-tighter text-white/90 drop-shadow-lg mb-8">
+        <h2 className="text-6xl md:text-8xl font-bold tracking-tighter text-white/90 drop-shadow-2xl mb-8">
           SonicWave Pro
         </h2>
-        <p className="text-xl text-white/60 font-light max-w-lg mx-auto leading-relaxed">
+        <p className="text-xl text-white/60 font-light max-w-lg mx-auto leading-relaxed drop-shadow-md">
           The next generation of acoustic engineering. Discover sound without boundaries.
         </p>
       </motion.div>
@@ -28,7 +28,7 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-12 flex flex-col items-center justify-center gap-3 text-white/40"
+        className="absolute bottom-12 flex flex-col items-center justify-center gap-3 text-white/60 drop-shadow-md"
       >
         <span className="text-xs uppercase tracking-widest">Scroll to Explore</span>
         <motion.div
