@@ -49,8 +49,8 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="relative w-full h-screen bg-black p-4 md:p-6">
-      <div className="relative w-full h-full rounded-3xl md:rounded-[2.5rem] overflow-hidden bg-zinc-900 shadow-2xl border border-white/5">
+    <main className="relative w-full h-screen px-4 pb-4 md:px-6 md:pb-6 pt-0 bg-black">
+      <div className="relative w-full h-full rounded-b-2xl md:rounded-b-[2rem] overflow-hidden bg-zinc-900">
         {/* Video Background */}
         <div className="absolute inset-0 w-full h-full">
           <video
