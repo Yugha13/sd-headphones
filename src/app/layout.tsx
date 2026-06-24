@@ -29,9 +29,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${almarai.variable} ${instrumentSerif.variable} h-full antialiased`}
+      className={`${almarai.variable} ${instrumentSerif.variable} antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
+      <body className="flex flex-col bg-background text-foreground">
         <GlobalNavbar />
         {children}
       </body>
