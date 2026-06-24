@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useScroll } from "framer-motion";
 
 const FRAME_COUNT = 200;
 
@@ -13,8 +12,6 @@ const getFramePath = (index: number) => {
 export default function ImageSequenceCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
-
-  const { scrollYProgress } = useScroll();
 
   // Preload frames and extract background color
   useEffect(() => {
@@ -70,7 +67,11 @@ export default function ImageSequenceCanvas() {
     let animationFrameId: number;
 
     const renderLoop = () => {
-      const progress = scrollYProgress.get();
+      // Calculate native scroll progress
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       // Map progress 0 -> 0.7 to frameIndex 0 -> 199
@@ -120,7 +121,7 @@ export default function ImageSequenceCanvas() {
 
     renderLoop();
     return () => cancelAnimationFrame(animationFrameId);
-  }, [images, scrollYProgress]);
+  }, [images]);
 
   useEffect(() => {
     const handleResize = () => {

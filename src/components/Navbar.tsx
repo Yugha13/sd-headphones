@@ -17,24 +17,26 @@ export default function Navbar() {
         ALEX<span className="text-white/50">.DEV</span>
       </Link>
 
-      <div className="flex items-center gap-6">
-        {navLinks.map((link) => {
-          const isActive = pathname === link.href;
-          return (
-            <Link
-              key={link.name}
-              href={link.href}
-              className={`text-sm font-medium transition-colors ${
-                isActive ? "text-white" : "text-white/60 hover:text-white"
-              }`}
-            >
-              {link.name}
-            </Link>
-          );
-        })}
+      <div className="flex items-center gap-2 md:gap-6">
+        <div className="hidden md:flex items-center gap-6">
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`text-sm font-medium transition-colors ${
+                  isActive ? "text-white" : "text-white/60 hover:text-white"
+                }`}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
+        </div>
         <Link
           href="#contact"
-          className="ml-4 px-4 py-2 text-sm font-medium text-black bg-white rounded-full hover:bg-white/90 transition-transform active:scale-95"
+          className="ml-0 md:ml-4 px-4 py-2 text-xs md:text-sm font-medium text-black bg-white rounded-full hover:bg-white/90 transition-transform active:scale-95"
         >
           Hire Me
         </Link>
