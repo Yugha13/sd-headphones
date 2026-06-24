@@ -70,11 +70,11 @@ export default function ImageSequenceCanvas() {
       const w = img.width;
       const h = img.height;
       
-      const drawSlice = (
-        sx: number, sy: number, sw: number, sh: number,
-        dxOffset: number, dyOffset: number, rot: number
-      ) => {
+      // 1. Headband (Top portion)
+      const drawHeadband = () => {
         ctx.save();
+        const sx = 0, sy = 0, sw = w, sh = h * 0.45;
+        const dxOffset = 0, dyOffset = -easeP * (drawHeight * 0.3), rot = 0;
         
         const dx = offsetX + (sx / w) * drawWidth;
         const dy = offsetY + (sy / h) * drawHeight;
@@ -87,35 +87,76 @@ export default function ImageSequenceCanvas() {
         ctx.translate(cx + dxOffset, cy + dyOffset);
         ctx.rotate(rot);
         
-        ctx.drawImage(
-          img,
-          sx, sy, sw, sh,
-          -dw / 2, -dh / 2, dw, dh
-        );
+        // Soften the cut edge with a clip
+        ctx.beginPath();
+        ctx.ellipse(0, -dh*0.1, dw/2, dh/1.5, 0, 0, Math.PI * 2);
+        ctx.clip();
         
+        ctx.drawImage(img, sx, sy, sw, sh, -dw / 2, -dh / 2, dw, dh);
         ctx.restore();
       };
 
-      // 1. Headband (Top portion)
-      drawSlice(
-        0, 0, w, h * 0.45,
-        0, -easeP * (drawHeight * 0.3), // moves up
-        0
-      );
+      // 2. Left Earcup
+      const drawLeftEarcup = () => {
+        ctx.save();
+        const sx = 0, sy = h * 0.45, sw = w * 0.5, sh = h * 0.55;
+        const dxOffset = -easeP * (drawWidth * 0.4), dyOffset = easeP * (drawHeight * 0.1), rot = -easeP * 0.5;
+        
+        const dx = offsetX + (sx / w) * drawWidth;
+        const dy = offsetY + (sy / h) * drawHeight;
+        const dw = (sw / w) * drawWidth;
+        const dh = (sh / h) * drawHeight;
 
-      // 2. Left Earcup (Bottom left)
-      drawSlice(
-        0, h * 0.45, w * 0.5, h * 0.55,
-        -easeP * (drawWidth * 0.4), easeP * (drawHeight * 0.1), // moves left and slightly down
-        -easeP * 0.5 // rotates counter-clockwise
-      );
+        const cx = dx + dw / 2;
+        const cy = dy + dh / 2;
 
-      // 3. Right Earcup (Bottom right)
-      drawSlice(
-        w * 0.5, h * 0.45, w * 0.5, h * 0.55,
-        easeP * (drawWidth * 0.4), easeP * (drawHeight * 0.1), // moves right and slightly down
-        easeP * 0.5 // rotates clockwise
-      );
+        ctx.translate(cx + dxOffset, cy + dyOffset);
+        ctx.rotate(rot);
+        
+        ctx.beginPath();
+        ctx.ellipse(0, 0, dw/1.2, dh/1.2, 0, 0, Math.PI * 2);
+        ctx.clip();
+        
+        ctx.drawImage(img, sx, sy, sw, sh, -dw / 2, -dh / 2, dw, dh);
+        ctx.restore();
+      };
+
+      // 3. Right Earcup
+      const drawRightEarcup = () => {
+        ctx.save();
+        const sx = w * 0.5, sy = h * 0.45, sw = w * 0.5, sh = h * 0.55;
+        const dxOffset = easeP * (drawWidth * 0.4), dyOffset = easeP * (drawHeight * 0.1), rot = easeP * 0.5;
+        
+        const dx = offsetX + (sx / w) * drawWidth;
+        const dy = offsetY + (sy / h) * drawHeight;
+        const dw = (sw / w) * drawWidth;
+        const dh = (sh / h) * drawHeight;
+
+        const cx = dx + dw / 2;
+        const cy = dy + dh / 2;
+
+        ctx.translate(cx + dxOffset, cy + dyOffset);
+        ctx.rotate(rot);
+        
+        ctx.beginPath();
+        ctx.ellipse(0, 0, dw/1.2, dh/1.2, 0, 0, Math.PI * 2);
+        ctx.clip();
+        
+        ctx.drawImage(img, sx, sy, sw, sh, -dw / 2, -dh / 2, dw, dh);
+        ctx.restore();
+      };
+
+      // Draw with lighten composite to blend backgrounds smoothly
+      ctx.globalCompositeOperation = "lighten";
+      
+      // If fully assembled, draw the whole image to avoid clip seams
+      if (easeP < 0.01) {
+        ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+      } else {
+        drawHeadband();
+        drawLeftEarcup();
+        drawRightEarcup();
+      }
       
       ctx.restore();
     };
