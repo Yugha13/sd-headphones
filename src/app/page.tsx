@@ -1,6 +1,7 @@
 import HeroSection from "@/components/HeroSection";
 import ScrollyTellingSection from "@/components/ScrollyTellingSection";
 import FooterCTA from "@/components/FooterCTA";
+import ProjectsSection from "@/components/ProjectsSection";
 import ImageSequenceCanvas from "@/components/ImageSequenceCanvas";
 
 export default function Home() {
@@ -12,6 +13,7 @@ export default function Home() {
       <div className="relative z-10">
         <HeroSection />
         <ScrollyTellingSection />
+        <ProjectsSection />
         <FooterCTA />
       </div>
     </main>

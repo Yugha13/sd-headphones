@@ -14,13 +14,13 @@ export default function HeroSection() {
         className="z-10 text-center pointer-events-none px-6 md:px-0"
       >
         <h1 className="text-xs md:text-sm uppercase tracking-[0.3em] text-white/50 mb-6 drop-shadow-md">
-          Introducing
+          Software Engineer
         </h1>
         <h2 className="text-5xl md:text-8xl font-bold tracking-tighter text-white/90 drop-shadow-2xl mb-8">
-          SonicWave Pro
+          Alex Dev
         </h2>
         <p className="text-lg md:text-xl text-white/60 font-light max-w-lg mx-auto leading-relaxed drop-shadow-md">
-          The next generation of acoustic engineering. Discover sound without boundaries.
+          Building scalable, elegant web applications and pushing the boundaries of interactive experiences.
         </p>
       </motion.div>
 

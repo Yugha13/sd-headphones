@@ -13,14 +13,14 @@ export default function FooterCTA() {
         className="text-center px-6 md:px-0"
       >
         <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-white/90 mb-6">
-          Ready for the extraordinary?
+          Ready to build something amazing?
         </h2>
         <p className="text-base md:text-lg text-white/50 mb-10 max-w-md mx-auto">
-          Pre-order SonicWave Pro today and be the first to experience the future of sound.
+          Let's collaborate on your next big idea. I'm currently available for freelance projects and open to full-time opportunities.
         </p>
         
         <button className="px-8 py-4 bg-white text-black font-medium tracking-wide rounded-full hover:bg-white/90 transition-colors transform hover:scale-105 active:scale-95 duration-200">
-          Pre-order Now
+          Get in Touch
         </button>
       </motion.div>
 
