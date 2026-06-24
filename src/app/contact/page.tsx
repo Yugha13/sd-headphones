@@ -68,10 +68,20 @@ export default function ContactPage() {
         </div>
 
         {/* Content */}
-        <div className="absolute inset-0 z-10 w-full h-full flex flex-col-reverse lg:flex-row items-end justify-between p-6 sm:p-10 md:p-12 lg:p-16 gap-8 lg:gap-12">
+        <div className="absolute inset-0 z-10 w-full h-full flex flex-col lg:flex-row items-end justify-between pt-16 px-6 sm:px-10 md:px-12 lg:px-16 pb-4 lg:pb-6 gap-8 lg:gap-12">
           
-          {/* Left Side: Form Card */}
-          <div className="w-full lg:w-1/2 flex justify-center lg:justify-start">
+          {/* Left Side: Text */}
+          <div className="w-full lg:w-1/2 flex flex-col justify-end drop-shadow-2xl">
+            <div className="max-w-xl">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] tracking-tight text-white mb-2 lg:mb-4" style={{ textShadow: "0 4px 30px rgba(0,0,0,0.8)" }}>
+                We craft bold ideas <br />
+                and ship them as <span className="font-serif italic text-[#E1E0CC]">products</span>
+              </h1>
+            </div>
+          </div>
+
+          {/* Right Side: Form Card */}
+          <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
             <motion.div 
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -160,16 +170,6 @@ export default function ContactPage() {
                 </button>
               </form>
             </motion.div>
-          </div>
-
-          {/* Right Side: Text */}
-          <div className="w-full lg:w-1/2 flex flex-col justify-end lg:items-end text-left lg:text-right drop-shadow-2xl">
-            <div className="max-w-xl">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] tracking-tight text-white mb-2 lg:mb-4" style={{ textShadow: "0 4px 30px rgba(0,0,0,0.8)" }}>
-                We craft bold ideas <br />
-                and ship them as <span className="font-serif italic text-[#E1E0CC]">products</span>
-              </h1>
-            </div>
           </div>
       </div>
       </div>
