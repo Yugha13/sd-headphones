@@ -1,17 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
 
 export default function FooterCTA() {
   return (
     <section className="relative w-full min-h-screen flex flex-col items-center justify-center bg-background border-t border-white/5">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8 }}
-        className="text-center px-6 md:px-0"
-      >
+      <div className="text-center px-6 md:px-0">
         <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-white/90 mb-6">
           Ready to build something amazing?
         </h2>
@@ -22,7 +15,7 @@ export default function FooterCTA() {
         <button className="px-8 py-4 bg-white text-black font-medium tracking-wide rounded-full hover:bg-white/90 transition-colors transform hover:scale-105 active:scale-95 duration-200">
           Get in Touch
         </button>
-      </motion.div>
+      </div>
 
       <div className="absolute bottom-8 text-xs text-white/30 tracking-wider">
         © {new Date().getFullYear()} SonicWave Audio. All rights reserved.
