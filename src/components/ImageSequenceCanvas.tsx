@@ -17,26 +17,6 @@ export default function ImageSequenceCanvas() {
   useEffect(() => {
     let isCancelled = false;
     const loadedImages: HTMLImageElement[] = [];
-
-    const extractBackgroundColor = (img: HTMLImageElement) => {
-      try {
-        const c = document.createElement("canvas");
-        c.width = 1;
-        c.height = 1;
-        const ctx = c.getContext("2d");
-        if (ctx) {
-          ctx.drawImage(img, 0, 0, 1, 1);
-          const data = ctx.getImageData(0, 0, 1, 1).data;
-          document.documentElement.style.setProperty(
-            "--color-background",
-            `rgb(${data[0]}, ${data[1]}, ${data[2]})`
-          );
-        }
-      } catch (e) {
-        console.warn("Could not extract background color:", e);
-      }
-    };
-
     for (let i = 1; i <= FRAME_COUNT; i++) {
       const img = new Image();
       img.decoding = "async"; // Helps mobile browsers not block the main thread
@@ -44,7 +24,6 @@ export default function ImageSequenceCanvas() {
       img.onload = () => {
         if (!isCancelled) {
           if (i === 1) {
-            extractBackgroundColor(img);
             setImages([...loadedImages]);
           }
         }
