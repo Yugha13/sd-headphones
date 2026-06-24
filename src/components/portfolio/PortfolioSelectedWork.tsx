@@ -55,9 +55,9 @@ const ProjectCard = ({ project, index }: { project: typeof PROJECTS[0], index: n
           style={{ y }}
           src={project.image}
           alt={project.title}
-          className="absolute inset-0 w-full h-[120%] object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+          className="absolute inset-0 w-full h-[120%] object-cover object-center"
         />
-        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-700" />
+        <div className="absolute inset-0 bg-black/10" />
       </div>
 
       {/* Content Side */}
