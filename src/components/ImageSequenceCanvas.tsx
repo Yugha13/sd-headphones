@@ -65,6 +65,7 @@ export default function ImageSequenceCanvas() {
     ctx.imageSmoothingQuality = "high";
 
     let animationFrameId: number;
+    let lastDrawnImg: HTMLImageElement | null = null;
 
     const renderLoop = () => {
       // Calculate native scroll progress
@@ -72,8 +73,6 @@ export default function ImageSequenceCanvas() {
       const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const progress = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
       // Map progress 0 -> 0.7 to frameIndex 0 -> 199
       let frameProgress = 0;
       if (progress <= 0.7) {
@@ -81,17 +80,28 @@ export default function ImageSequenceCanvas() {
       } else {
         frameProgress = 1; // Locked to last frame
       }
-      
+
       const frameIndex = Math.min(
         FRAME_COUNT - 1,
         Math.max(0, Math.floor(frameProgress * FRAME_COUNT))
       );
 
-      const img = images[frameIndex];
+      let img = images[frameIndex];
+      
+      // Fallback to last drawn image if the current frame hasn't finished loading over the network
       if (!img || !img.complete || img.naturalWidth === 0) {
-        animationFrameId = requestAnimationFrame(renderLoop);
-        return;
+        if (lastDrawnImg) {
+          img = lastDrawnImg;
+        } else {
+          animationFrameId = requestAnimationFrame(renderLoop);
+          return;
+        }
+      } else {
+        lastDrawnImg = img;
       }
+
+      // ONLY clear the canvas if we actually have an image to draw
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const canvasRatio = canvas.width / canvas.height;
       const imgRatio = img.width / img.height;
