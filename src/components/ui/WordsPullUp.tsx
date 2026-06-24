@@ -38,12 +38,13 @@ export default function WordsPullUp({ text, className = "", showAsterisk = false
       className={`inline-flex flex-wrap ${className}`}
     >
       {words.map((word, i) => (
-        <span key={i} className="relative inline-flex overflow-hidden pr-[0.2em] -mr-[0.2em]">
+        <span key={i} className="relative inline-flex overflow-hidden">
           <motion.span variants={item} className="inline-block relative">
             {word}
             {showAsterisk && i === words.length - 1 && (
               <span className="absolute top-[0.65em] -right-[0.3em] text-[0.31em]">*</span>
             )}
+            &nbsp;
           </motion.span>
         </span>
       ))}
