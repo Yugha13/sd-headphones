@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -8,8 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "SonicWave Pro - Sound Redefined",
-  description: "Experience the ultimate audio fidelity with SonicWave Pro.",
+  title: "Alex Dev - Software Engineer",
+  description: "Portfolio of Alex, a Full-Stack Software Engineer building scalable applications.",
 };
 
 export default function RootLayout({
@@ -22,7 +23,10 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">{children}</body>
+      <body className="min-h-full flex flex-col bg-background text-foreground">
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }
