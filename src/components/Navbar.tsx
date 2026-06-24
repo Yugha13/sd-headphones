@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -13,12 +12,7 @@ export default function Navbar() {
   ];
 
   return (
-    <motion.nav 
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-between bg-black/50 backdrop-blur-md border-b border-white/5"
-    >
+    <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-between bg-black/50 backdrop-blur-md border-b border-white/5">
       <Link href="/" className="text-xl font-bold tracking-tighter text-white/90">
         ALEX<span className="text-white/50">.DEV</span>
       </Link>
@@ -45,6 +39,6 @@ export default function Navbar() {
           Hire Me
         </Link>
       </div>
-    </motion.nav>
+    </nav>
   );
 }
