@@ -50,13 +50,12 @@ export default function ImageSequenceCanvas() {
 
       // The hero section is ~15-20% of the total scroll height.
       // We want the headphones to stay assembled in the hero, then start breaking.
-      // Let's make the explosion start at progress 0.15 and finish at 0.85
       let explosionProgress = 0;
       if (progress > 0.15) {
         explosionProgress = Math.min(1, (progress - 0.15) / 0.7);
       }
 
-      // We can also add a subtle zoom out effect when scrolling from 0 to 0.15
+      // Subtle zoom out effect when scrolling from 0 to 0.15
       const scaleP = progress < 0.15 ? 1 - (progress / 0.15) * 0.1 : 0.9;
       
       ctx.save();
