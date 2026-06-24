@@ -3,9 +3,16 @@
 import { useEffect, useRef, useState } from "react";
 import { useScroll } from "framer-motion";
 
+const FRAME_COUNT = 30;
+
+const getFramePath = (index: number) => {
+  const paddedIndex = index.toString().padStart(3, "0");
+  return `/frames/ezgif-frame-${paddedIndex}.jpg`;
+};
+
 export default function ImageSequenceCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [img, setImg] = useState<HTMLImageElement | null>(null);
+  const [images, setImages] = useState<HTMLImageElement[]>([]);
   const { scrollYProgress } = useScroll();
   const [progress, setProgress] = useState(0);
 
@@ -13,15 +20,50 @@ export default function ImageSequenceCanvas() {
     return scrollYProgress.onChange(setProgress);
   }, [scrollYProgress]);
 
+  // Preload frames and extract background color
   useEffect(() => {
-    const image = new Image();
-    image.src = "/images/headphone.png";
-    image.onload = () => setImg(image);
+    let isCancelled = false;
+    const loadedImages: HTMLImageElement[] = [];
+
+    const extractBackgroundColor = (img: HTMLImageElement) => {
+      const c = document.createElement("canvas");
+      c.width = 1;
+      c.height = 1;
+      const ctx = c.getContext("2d");
+      if (ctx) {
+        ctx.drawImage(img, 0, 0, 1, 1);
+        const data = ctx.getImageData(0, 0, 1, 1).data;
+        document.documentElement.style.setProperty(
+          "--color-background",
+          `rgb(${data[0]}, ${data[1]}, ${data[2]})`
+        );
+      }
+    };
+
+    for (let i = 1; i <= FRAME_COUNT; i++) {
+      const img = new Image();
+      img.src = getFramePath(i);
+      img.onload = () => {
+        if (!isCancelled) {
+          if (i === 1) {
+            extractBackgroundColor(img);
+            setImages([...loadedImages]);
+          }
+        }
+      };
+      loadedImages.push(img);
+    }
+    
+    setImages(loadedImages);
+
+    return () => {
+      isCancelled = true;
+    };
   }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas || !img) return;
+    if (!canvas || images.length === 0) return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -29,6 +71,23 @@ export default function ImageSequenceCanvas() {
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
+      // PHASE 1: Sequence Scrubbing (0.0 to 0.15)
+      // Map progress 0 -> 0.15 to frameIndex 0 -> 29
+      let frameProgress = 0;
+      if (progress <= 0.15) {
+        frameProgress = progress / 0.15;
+      } else {
+        frameProgress = 1; // Locked to last frame
+      }
+      
+      const frameIndex = Math.min(
+        FRAME_COUNT - 1,
+        Math.max(0, Math.floor(frameProgress * FRAME_COUNT))
+      );
+
+      const img = images[frameIndex];
+      if (!img || !img.complete || img.naturalWidth === 0) return;
+
       const canvasRatio = canvas.width / canvas.height;
       const imgRatio = img.width / img.height;
       
@@ -38,38 +97,41 @@ export default function ImageSequenceCanvas() {
       let offsetY = 0;
 
       if (imgRatio > canvasRatio) {
-        drawWidth = canvas.width * 0.8;
-        drawHeight = drawWidth / imgRatio;
+        drawHeight = canvas.height;
+        drawWidth = canvas.height * imgRatio;
       } else {
-        drawHeight = canvas.height * 0.8;
-        drawWidth = drawHeight * imgRatio;
+        drawWidth = canvas.width;
+        drawHeight = canvas.width / imgRatio;
       }
       
       offsetX = (canvas.width - drawWidth) / 2;
       offsetY = (canvas.height - drawHeight) / 2;
 
-      // The hero section is ~15-20% of the total scroll height.
-      // We want the headphones to stay assembled in the hero, then start breaking.
+      // PHASE 2: 3D Explosion on the last frame (0.15 to 0.85)
       let explosionProgress = 0;
       if (progress > 0.15) {
         explosionProgress = Math.min(1, (progress - 0.15) / 0.7);
       }
 
-      // Subtle zoom out effect when scrolling from 0 to 0.15
-      const scaleP = progress < 0.15 ? 1 - (progress / 0.15) * 0.1 : 0.9;
-      
       ctx.save();
-      // Center scale
+      // Center translation for ease
       ctx.translate(canvas.width / 2, canvas.height / 2);
-      ctx.scale(scaleP, scaleP);
       ctx.translate(-canvas.width / 2, -canvas.height / 2);
 
       const easeP = 1 - Math.pow(1 - explosionProgress, 3);
 
       const w = img.width;
       const h = img.height;
-      
-      // 1. Headband (Top portion)
+
+      // Draw standard frame if not exploding
+      if (easeP < 0.01) {
+        ctx.globalCompositeOperation = "lighten";
+        ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+        ctx.restore();
+        return;
+      }
+
+      // Explosion slices
       const drawHeadband = () => {
         ctx.save();
         const sx = 0, sy = 0, sw = w, sh = h * 0.45;
@@ -86,7 +148,6 @@ export default function ImageSequenceCanvas() {
         ctx.translate(cx + dxOffset, cy + dyOffset);
         ctx.rotate(rot);
         
-        // Soften the cut edge with a clip
         ctx.beginPath();
         ctx.ellipse(0, -dh*0.1, dw/2, dh/1.5, 0, 0, Math.PI * 2);
         ctx.clip();
@@ -95,7 +156,6 @@ export default function ImageSequenceCanvas() {
         ctx.restore();
       };
 
-      // 2. Left Earcup
       const drawLeftEarcup = () => {
         ctx.save();
         const sx = 0, sy = h * 0.45, sw = w * 0.5, sh = h * 0.55;
@@ -120,7 +180,6 @@ export default function ImageSequenceCanvas() {
         ctx.restore();
       };
 
-      // 3. Right Earcup
       const drawRightEarcup = () => {
         ctx.save();
         const sx = w * 0.5, sy = h * 0.45, sw = w * 0.5, sh = h * 0.55;
@@ -145,24 +204,17 @@ export default function ImageSequenceCanvas() {
         ctx.restore();
       };
 
-      // Draw with lighten composite to blend backgrounds smoothly
       ctx.globalCompositeOperation = "lighten";
-      
-      // If fully assembled, draw the whole image to avoid clip seams
-      if (easeP < 0.01) {
-        ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
-      } else {
-        drawHeadband();
-        drawLeftEarcup();
-        drawRightEarcup();
-      }
+      drawHeadband();
+      drawLeftEarcup();
+      drawRightEarcup();
       
       ctx.restore();
     };
 
     const animationFrameId = requestAnimationFrame(draw);
     return () => cancelAnimationFrame(animationFrameId);
-  }, [progress, img]);
+  }, [progress, images]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -179,7 +231,7 @@ export default function ImageSequenceCanvas() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute top-0 left-0 w-full h-full object-cover"
+      className="absolute top-0 left-0 w-full h-full object-cover mix-blend-screen"
     />
   );
 }
