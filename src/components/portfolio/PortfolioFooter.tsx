@@ -25,7 +25,7 @@ export default function PortfolioFooter() {
         </p>
         
         <motion.a
-          href="mailto:hello@yugha.me"
+          href="/contact"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="inline-flex items-center justify-center px-8 sm:px-10 py-4 bg-primary text-black font-medium tracking-wide rounded-full transition-colors hover:bg-[#E1E0CC]/90"
