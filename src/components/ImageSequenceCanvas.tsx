@@ -73,10 +73,17 @@ export default function ImageSequenceCanvas() {
       const progress = scrollYProgress.get();
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Map full progress to frameIndex
+      // Map progress 0 -> 0.7 to frameIndex 0 -> 199
+      let frameProgress = 0;
+      if (progress <= 0.7) {
+        frameProgress = progress / 0.7;
+      } else {
+        frameProgress = 1; // Locked to last frame
+      }
+      
       const frameIndex = Math.min(
         FRAME_COUNT - 1,
-        Math.max(0, Math.floor(progress * FRAME_COUNT))
+        Math.max(0, Math.floor(frameProgress * FRAME_COUNT))
       );
 
       const img = images[frameIndex];
