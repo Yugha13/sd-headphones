@@ -9,7 +9,7 @@ export default function Home() {
     <main className="relative bg-background min-h-screen">
       <div className="fixed inset-0 pointer-events-none z-0">
         <ImageSequenceCanvas />
-        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-black/40 md:bg-black/60" />
       </div>
       <div className="relative z-10">
         <HeroSection />
