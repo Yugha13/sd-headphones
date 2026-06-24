@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useScroll } from "framer-motion";
 
-const FRAME_COUNT = 100;
+const FRAME_COUNT = 200;
 
 const getFramePath = (index: number) => {
   const paddedIndex = index.toString().padStart(3, "0");
