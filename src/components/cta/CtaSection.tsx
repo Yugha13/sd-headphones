@@ -21,7 +21,7 @@ export default function CtaSection() {
   const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
   const dashboardY = useTransform(scrollYProgress, [0, 1], ["120px", "-120px"]);
-  const grassY     = useTransform(scrollYProgress, [0, 1], isMobile ? ["80px", "-40px"] : ["200px", "-200px"]);
+  const grassY = useTransform(scrollYProgress, [0, 1], isMobile ? ["80px", "-40px"] : ["200px", "-200px"]);
 
   return (
     <section
@@ -54,7 +54,7 @@ export default function CtaSection() {
       {/* Dashboard pinned to right edge, behind grass, parallax Y */}
       <motion.div
         style={{ y: dashboardY }}
-        className="absolute top-[440px] sm:top-[460px] md:top-[500px] lg:top-20 left-4 right-4 sm:left-auto sm:-right-[8%] md:-right-[10%] lg:-right-[12%] z-10 sm:w-[85%] md:w-[80%] lg:w-[68%]"
+        className="absolute top-[40px] sm:top-[460px] md:top-[500px] lg:top-20 left-4 right-4 sm:left-auto sm:-right-[8%] md:-right-[10%] lg:-right-[12%] z-10 sm:w-[85%] md:w-[80%] lg:w-[68%]"
       >
         <CtaDashboardMock />
       </motion.div>
