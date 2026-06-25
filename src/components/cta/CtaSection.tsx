@@ -36,16 +36,16 @@ export default function CtaSection() {
           <div className="relative z-20 max-w-[400px]">
             <FadeUp delay={1}>
               <h2 className="text-3xl sm:text-4xl font-normal tracking-[-0.02em] leading-[1.05] text-foreground">
-                Learn how can one go from 0 to $11.5k with AI in 60 days.
+                Ready to build something amazing?
               </h2>
             </FadeUp>
             <FadeUp delay={0.1}>
               <p className="mt-6 text-landing-text text-base sm:text-lg leading-[1.5] max-w-[380px]">
-                Learn to turn your ideas into stunning websites with AI — the same skills agencies charge $5,000 for. Join the UI Rocket training and start building like a pro today.
+                Let's collaborate on your next big idea. I'm currently available for freelance projects and open to full-time opportunities.
               </p>
             </FadeUp>
             <FadeUp delay={0.2} className="mt-10">
-              <PrimaryButton as="button">Start for free</PrimaryButton>
+              <PrimaryButton as="a" href="/contact">Get in Touch</PrimaryButton>
             </FadeUp>
           </div>
         </div>
@@ -65,7 +65,7 @@ export default function CtaSection() {
         alt=""
         aria-hidden
         style={{ y: grassY }}
-        className="pointer-events-none select-none absolute left-0 right-0 bottom-[-40px] sm:bottom-[-80px] lg:bottom-[-140px] w-full z-30 object-cover"
+        className="pointer-events-none select-none absolute left-0 right-0 bottom-[-100px] sm:bottom-[-200px] lg:bottom-[-300px] xl:bottom-[-400px] w-full z-30 object-cover"
       />
     </section>
   );
